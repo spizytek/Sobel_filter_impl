@@ -60,7 +60,11 @@ begin
     pad_p01_x2 <= "00" & p01 & '0';
     pad_p21_x2 <= "00" & p21 & '0';
 
-    --Note: p11 is ignored because in both Gx and Gy, p11 remains 0.
+    -- Note: p11 is ignored because in both Gx and Gy, p11 remains 0.
+    -- To compute these in hardware, you need to solve two problems:
+    -- 1. Multiply by 2 for the middle terms (p_{10}, p_{12}, p_{01}, p_{21}).
+    -- 1. Prevent bit overflow during additions and handle signed negative numbers during the final subtraction.
+    
     -- Calculating for Gx using the formular.
     -- (p02 + 2*p12 + p22) - (p00 + 2*p10 + p20). 
     -- Gx = Right column - Left column
