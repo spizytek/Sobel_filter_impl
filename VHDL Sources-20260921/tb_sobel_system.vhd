@@ -78,7 +78,7 @@ begin
     -- STIMULUS PROCESS: Read from image_src.txt
     -- ==========================================
     read_process: process
-        file file_IN        : text open read_mode is "/homes/j24jabou/Bureau/STEAI/VHDL Projects/imagesrc.txt";
+        file file_IN        : text open read_mode is "C:\Users\Techist\Desktop\EmbAI\Sobel_filter_impl\imagesrc.txt"; -- "/homes/j24jabou/Bureau/STEAI/VHDL Projects/imagesrc.txt";
         variable v_ILINE    : line;
         variable v_BIT_VEC  : bit_vector(7 downto 0);
     begin
@@ -119,7 +119,7 @@ begin
     -- MONITOR PROCESS: Write to SobelEdgeVHDL.txt
     -- ==========================================
     write_process: process
-        file file_OUT       : text open write_mode is "/homes/j24jabou/Bureau/STEAI/VHDL Projects/SobelEdgeVHDL.txt";
+        file file_OUT       : text open write_mode is "C:\Users\Techist\Desktop\EmbAI\Sobel_filter_impl\SobelEdgeVHDL.txt"; -- "/homes/j24jabou/Bureau/STEAI/VHDL Projects/SobelEdgeVHDL.txt";
         variable v_OLINE    : line;
         variable v_BIT_VEC  : bit_vector(10 downto 0);
     begin

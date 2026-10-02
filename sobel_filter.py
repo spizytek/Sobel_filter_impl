@@ -50,7 +50,7 @@ def ImgResize(img_dim:tuple, img_src):
 # Multiplies the Pixel window (3x3) using 
 def convolve(image, kernel):
     height, width = image.shape
-    output = np.zeros((height, width), dtype=np.float32)
+    output = np.zeros((height - 2, width - 2), dtype=np.float32)
     
     # Loop over each pixel, skipping the 1-pixel border
     for y in range(1, height - 1):
@@ -64,7 +64,7 @@ def convolve(image, kernel):
                 for kx in range(3):
                     total += window[ky, kx] * kernel[ky, kx]
             
-            output[y, x] = total
+            output[y-1, x-1] = total
     
     return output
 

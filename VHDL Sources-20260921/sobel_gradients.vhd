@@ -184,7 +184,7 @@ begin
             if rst = '1' then
                 gx_out <= (others => '0');
                 gy_out <= (others => '0');
-            elsif we = '1' then
+            else --if we = '1' then
                 gx_out <= gx_comb;
                 gy_out <= gy_comb;
             end if;

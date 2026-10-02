@@ -53,68 +53,69 @@ begin
             current_state <= IDLE;
             col_count     <= 0;
             row_count     <= 0;
-    else
-        case current_state is
-            
-            when IDLE =>
-                col_count <= 0;
-                row_count <= 0;
-                if start = '1' then
-                    current_state <= FILL_LB0;
-                end if;
-
-            when FILL_LB0 =>
-                if pixel_valid_in = '1' then
-                    if col_count = IMAGE_WIDTH - 1 then
-                        col_count     <= 0;
-                        row_count     <= 1;
-                        current_state <= FILL_LB1;
-                    else
-                        col_count <= col_count + 1;
+        else
+            case current_state is
+                
+                when IDLE =>
+                    col_count <= 0;
+                    row_count <= 0;
+                    if start = '1' then
+                        current_state <= FILL_LB0;
                     end if;
-                end if;
-
-            when FILL_LB1 =>
-                if pixel_valid_in = '1' then
-                    if col_count = IMAGE_WIDTH - 1 then
-                        col_count     <= 0;
-                        row_count     <= 2;
-                        current_state <= PROCESS_ROW;
-                    else
-                        col_count <= col_count + 1;
-                    end if;
-                end if;
-
-            when PROCESS_ROW =>
-                if pixel_valid_in = '1' then
-                    if col_count = IMAGE_WIDTH - 1 then
-                        col_count <= 0;
-                        if row_count = IMAGE_HEIGHT - 1 then
-                            current_state <= FINISHED;
+    
+                when FILL_LB0 =>
+                    if pixel_valid_in = '1' then
+                        if col_count = IMAGE_WIDTH - 1 then
+                            col_count     <= 0;
+                            row_count     <= 1;
+                            current_state <= FILL_LB1;
                         else
-                            row_count <= row_count + 1;
+                            col_count <= col_count + 1;
                         end if;
-                    else
-                        col_count <= col_count + 1;
                     end if;
-                end if;
-
-            when FINISHED =>
-                if start = '0' then
+    
+                when FILL_LB1 =>
+                    if pixel_valid_in = '1' then
+                        if col_count = IMAGE_WIDTH - 1 then
+                            col_count     <= 0;
+                            row_count     <= 2;
+                            current_state <= PROCESS_ROW;
+                        else
+                            col_count <= col_count + 1;
+                        end if;
+                    end if;
+    
+                when PROCESS_ROW =>
+                    if pixel_valid_in = '1' then
+                        if col_count = IMAGE_WIDTH - 1 then
+                            col_count <= 0;
+                            if row_count = IMAGE_HEIGHT - 1 then
+                                current_state <= FINISHED;
+                            else
+                                row_count <= row_count + 1;
+                            end if;
+                        else
+                            col_count <= col_count + 1;
+                        end if;
+                    end if;
+    
+                when FINISHED =>
+                    if start = '0' then
+                        current_state <= IDLE;
+                    end if;
+    
+                when others =>
                     current_state <= IDLE;
-                end if;
-
-            when others =>
-                current_state <= IDLE;
-
-        end case;
+    
+            end case;
+         end if; -- Rst
      end if; -- rising edge
-     end process; -- process
+    end process; -- process
 
 
 -- Control and shift register
 process(clk)
-    begin
+begin
         if rising_edge(clk) then
             if rst = '1' then
                 ctrl_pipe <= (others => ('0', '0'));

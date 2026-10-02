@@ -97,7 +97,7 @@ begin
     if rising_edge(clk) then
         if rst = '1' then
             mag_out <= (others => '0') ;
-        elsif we = '1' then
+        else --  if we = '1' then
             mag_out <= mag_comb;
         end if;
     end if;

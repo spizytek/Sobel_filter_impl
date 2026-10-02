@@ -35,10 +35,10 @@ def Save_PixelasString(pixel_values: str):
         for index, pixel in enumerate(pixel_values):
             print(index)
             if (index != PER_PIXEL_LINE_BOUNDARY):
-                file.write(str(pixel))
+                file.write(str(format(pixel, "08b")))
                 file.write('\n')
             else:
-                file.write(str(pixel))
+                file.write(str(format(pixel, "08b")))
 
 def main():
 
